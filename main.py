@@ -7,7 +7,7 @@ from sys import argv
 from os import listdir
 from os.path import isfile
 
-folder = argv[1]
+folder = 'themes/'+argv[1]
 print(folder)
 
 
@@ -22,7 +22,7 @@ def get_path(folder_, file_):
 
 wall = get_path(folder, 'background')
 first = get_path(folder, 'first')
-audio = 'songs/tiktok_song.m4a'
+audio = 'songs/holy.mp3'
 imgs = sorted(listdir(f'{folder}/imgs/'))
 
 frame_duration = 1
@@ -77,14 +77,9 @@ clips.append(
 
 final_clip = CompositeVideoClip([wall_clip, *clips], size=(1080, 1920))
 
-if total_duration < 36:
-    final_clip.audio = CompositeAudioClip(
-        [AudioFileClip(audio).subclip(60+59-init_duration, 60+59-init_duration+total_duration)]
+final_clip.audio = CompositeAudioClip(
+        [AudioFileClip(audio).subclip(10-init_duration, 10-init_duration+total_duration)]
     )
-else:
-    final_clip.audio = CompositeAudioClip([
-        AudioFileClip(audio).subclip(60+59-init_duration, 120+29),
-        AudioFileClip(audio).subclip(120+45, 120+45+total_duration-30-init_duration).set_start(36)
-    ])
 
-final_clip.write_videofile('output/tiktok_fast_superman.mp4', fps=20)
+
+final_clip.write_videofile(f"output/tiktok_{folder.split('/')[1]}.mp4", fps=20)
