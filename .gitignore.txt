@@ -1,3 +1,0 @@
-output/*
-themes/*
-.idea/*
